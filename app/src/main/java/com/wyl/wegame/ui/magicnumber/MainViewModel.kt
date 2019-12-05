@@ -23,14 +23,11 @@ class MainViewModel : ViewModel() {
     fun data() = dataList[index]
 
     fun addNumber() {
-        if (index >= dataList.size) return
+        if (index >= dataList.lastIndex) return
         number += dataList[index].first
     }
 
-    fun hasNextPage(): Boolean {
-        index++
-        return index < dataList.size
-    }
+    fun hasNextPage(): Boolean = index++ < dataList.lastIndex
 
     fun answer() =
         if (number <= 100) {
