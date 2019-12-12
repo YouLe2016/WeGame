@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.wyl.wegame.ui.magicnumber.MainFragment"
+        android:name="com.wyl.wegame.magicnumber.MainFragment"
         android:label="魔法数字"
         tools:layout="@layout/main_fragment">
         <action
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.wyl.wegame.ui.magicnumber.WelcomeFragment"
+        android:name="com.wyl.wegame.magicnumber.WelcomeFragment"
         android:label="欢迎"
         tools:layout="@layout/fragment_welcome">
         <action
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="com.wyl.wegame.ui.magicnumber.ResultFragment"
+        android:name="com.wyl.wegame.magicnumber.ResultFragment"
         android:label="魔法数字"
         tools:layout="@layout/fragment_result" />
 </navigation>

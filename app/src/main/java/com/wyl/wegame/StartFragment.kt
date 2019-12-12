@@ -28,7 +28,7 @@ class StartFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         animationView.apply {
             addAnimatorListener(
-                object : Animator.AnimatorListener{
+                object : Animator.AnimatorListener {
                     override fun onAnimationRepeat(animation: Animator?) {
                         println("xxx 222222")
                     }
@@ -38,7 +38,8 @@ class StartFragment : Fragment() {
                         startActivity(
                             Intent(requireContext(), MainActivity::class.java)
                         )
-                        activity?.onBackPressed()
+//                        activity?.onBackPressed()
+                        activity?.finish()
                     }
 
                     override fun onAnimationCancel(animation: Animator?) {

@@ -1,4 +1,4 @@
-package com.wyl.wegame.ui.magicnumber
+package com.wyl.wegame.magicnumber
 
 
 import android.os.Bundle
@@ -37,7 +37,7 @@ class ResultFragment : Fragment() {
             .setDuration(1800)
             .withEndAction {
                 message.postOnAnimationDelayed({
-                    val string = arguments?.getString(Result, "未知错误了") ?: "未知错误了"
+                    val string = arguments?.getString(Result) ?: "未知错误了"
                     val scale = if (string.length < 4) 2f else 1.2f
 
                     message.text = string

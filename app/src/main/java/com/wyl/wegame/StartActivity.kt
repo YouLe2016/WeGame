@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.tencent.bugly.beta.Beta
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -40,6 +41,7 @@ class StartActivity : AppCompatActivity() {
 
         // status bar颜色设置为透明
         window.statusBarColor = Color.TRANSPARENT
+
     }
 
 }

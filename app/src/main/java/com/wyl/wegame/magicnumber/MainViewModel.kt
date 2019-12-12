@@ -1,4 +1,4 @@
-package com.wyl.wegame.ui.magicnumber
+package com.wyl.wegame.magicnumber
 
 import androidx.lifecycle.ViewModel
 import com.wyl.wegame.R
