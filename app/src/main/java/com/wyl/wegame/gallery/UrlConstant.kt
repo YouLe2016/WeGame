@@ -34,5 +34,5 @@ package com.wyl.wegame.gallery
  * 内容描述：
  * 修改说明：
  */
-// http://gank.io/api/data/福利/10/1
-const val GirlUrl = "http://gank.io/api/data/福利/"
+// https://gank.io/api/data/福利/10/1
+const val GirlUrl = "https://gank.io/api/data/福利/"

@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/galleryFragment"
         android:name="com.wyl.wegame.gallery.GalleryFragment"
-        android:label="Gallery"
+        android:label="@string/gallery"
         tools:layout="@layout/fragment_gallery">
         <action
             android:id="@+id/action_galleryFragment_to_photoFragment"
@@ -16,6 +16,6 @@
     <fragment
         android:id="@+id/photoFragment"
         android:name="com.wyl.wegame.gallery.PhotoFragment"
-        android:label="Photo"
+        android:label="@string/gallery_photo"
         tools:layout="@layout/fragment_photo" />
 </navigation>

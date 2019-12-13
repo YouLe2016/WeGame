@@ -48,6 +48,8 @@ import com.wyl.wegame.bean.GirlItem
 class GalleryViewModel(application: Application) : AndroidViewModel(application) {
     private val _photoListLive = MutableLiveData<List<GirlItem>>()
 
+    private var tempData = emptyList<GirlItem>()
+
     val photoListLive: LiveData<List<GirlItem>>
         get() = _photoListLive
 
@@ -63,8 +65,15 @@ class GalleryViewModel(application: Application) : AndroidViewModel(application)
             .execute(object : StringCallback() {
                 override fun onSuccess(response: Response<String>) {
                     page++
-                    _photoListLive.value =
-                        Gson().fromJson<GirlApi>(response.body(), GirlApi::class.java).results
+
+                    Gson().fromJson<GirlApi>(response.body(), GirlApi::class.java).results.let {
+                        tempData = if (isRefresh) {
+                            it
+                        } else {
+                            tempData + it
+                        }
+                    }
+                    _photoListLive.value = tempData
                 }
             })
     }

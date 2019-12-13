@@ -23,7 +23,7 @@ class MainViewModel : ViewModel() {
     fun data() = dataList[index]
 
     fun addNumber() {
-        if (index >= dataList.lastIndex) return
+        if (index > dataList.lastIndex) return
         number += dataList[index].first
     }
 

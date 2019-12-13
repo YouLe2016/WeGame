@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.wyl.wegame.R
-import com.wyl.wegame.bean.GirlItem
 import kotlinx.android.synthetic.main.fragment_gallery.*
 
 /**
@@ -24,13 +23,9 @@ class GalleryFragment : Fragment() {
         const val TAG = "GalleryFragment"
     }
 
-    private lateinit var tempData: List<GirlItem>
-
     private val viewModel by lazy {
         ViewModelProviders.of(this).get(GalleryViewModel::class.java)
     }
-
-    private val mLayoutManager by lazy { GridLayoutManager(requireContext(), 2) }
 
     private val mAdapter by lazy { GalleryAdapter() }
 
@@ -41,25 +36,37 @@ class GalleryFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_gallery, container, false)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy: ")
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         Log.d(TAG, "onActivityCreated: ")
 
-        viewModel.fetchData(true)
+        viewModel.photoListLive.value ?: viewModel.fetchData(true)
 
         viewModel.photoListLive.observe(this, Observer {
-            tempData = if (viewModel.isRefresh) {
-                refreshLayout.finishRefresh()
-                it
-            } else {
-                refreshLayout.finishLoadMore()
-                tempData + it
-            }
-            mAdapter.submitList(tempData)
+            //            tempData = if (viewModel.isRefresh) {
+//                refreshLayout.finishRefresh()
+//                it
+//            } else {
+//                refreshLayout.finishLoadMore()
+//                tempData + it
+//            }
+//            mAdapter.submitList(tempData)
+
+//            refreshLayout.finishRefresh()
+//            mAdapter.submitList(it)
+
+            refreshLayout.finishRefresh()
+            refreshLayout.finishLoadMore()
+            mAdapter.submitList(it)
         })
 
         recyclerView.apply {
-            layoutManager = mLayoutManager
+            layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = mAdapter
         }
 
@@ -73,6 +80,10 @@ class GalleryFragment : Fragment() {
                     viewModel.fetchData(true)
                 }
             })
+
+//            setOnRefreshListener {
+//                viewModel.fetchData(false)
+//            }
         }
     }
 

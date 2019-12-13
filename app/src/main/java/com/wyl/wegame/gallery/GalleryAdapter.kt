@@ -28,14 +28,18 @@
 package com.wyl.wegame.gallery
 
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wyl.wegame.R
 import com.wyl.wegame.bean.GirlItem
+import com.wyl.wegame.gallery.PhotoFragment.Companion.Girl
 import kotlinx.android.synthetic.main.gallery_cell.view.*
 import me.panpf.sketch.decode.ImageAttrs
 import me.panpf.sketch.request.CancelCause
@@ -72,7 +76,10 @@ class GalleryAdapter : ListAdapter<GirlItem, GalleryAdapter.ViewHolder>(DiffCall
         val holder = ViewHolder(view)
 
         view.setOnClickListener {
-
+            holder.itemView.findNavController().navigate(
+                R.id.action_galleryFragment_to_photoFragment,
+                bundleOf(Girl to getItem(holder.adapterPosition))
+            )
         }
 
         return holder
@@ -83,7 +90,7 @@ class GalleryAdapter : ListAdapter<GirlItem, GalleryAdapter.ViewHolder>(DiffCall
         // 这个闪烁控件可以设置 闪烁时间 颜色 角度……
         val item = getItem(position)
         holder.imageView.apply {
-            options.setLoadingImage(R.drawable.ic_insert_photo_black_48dp)
+            options.setLoadingImage(R.drawable.ic_photo_gray_24dp)
             displayListener = object : DisplayListener {
                 override fun onStarted() {
                     holder.shimmerLayout.startShimmerAnimation()
@@ -94,6 +101,8 @@ class GalleryAdapter : ListAdapter<GirlItem, GalleryAdapter.ViewHolder>(DiffCall
                 }
 
                 override fun onError(cause: ErrorCause) {
+                    Log.d("TAG", cause.name + ": " + item.url)
+                    holder.shimmerLayout.stopShimmerAnimation()
                 }
 
                 override fun onCompleted(
@@ -110,8 +119,8 @@ class GalleryAdapter : ListAdapter<GirlItem, GalleryAdapter.ViewHolder>(DiffCall
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val shimmerLayout = itemView.shimmerLayout
-        val imageView = itemView.imageView2
+        val shimmerLayout = itemView.shimmerLayout!!
+        val imageView = itemView.imageView2!!
     }
 
 }
