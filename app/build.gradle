@@ -45,8 +45,16 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
 
-    implementation 'com.airbnb.android:lottie:3.3.1'
-
     implementation 'com.tencent.bugly:crashreport_upgrade:1.4.2'
     implementation 'com.tencent.bugly:nativecrashreport:3.7.1'
+
+    implementation 'com.airbnb.android:lottie:3.3.1'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
+    implementation 'io.supercharge:shimmerlayout:2.1.0'
+    implementation 'me.panpf:sketch:2.7.1'
+
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.lzy.net:okgo:3.0.4'
+
+
 }

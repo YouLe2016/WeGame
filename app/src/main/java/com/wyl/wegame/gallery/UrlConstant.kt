@@ -25,27 +25,14 @@
  * #          *****       ***        ***      *             #
  * #            **       ****        ****                   #
  */
-package com.wyl.wegame
-
-import android.app.Application
-import com.lzy.okgo.OkGo
-import com.tencent.bugly.Bugly
+package com.wyl.wegame.gallery
 
 /**
- *
- * INSTALL_FAILED_UPDATE_INCOMPATIBLE
  * 项目名称：WeGame
  * 创建人：江心才子
- * 创建时间：2019-12-12 14:32
+ * 创建时间：2019-12-12 15:48
  * 内容描述：
  * 修改说明：
  */
-
-class App : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        Bugly.init(applicationContext, "7cf3a4a126", BuildConfig.DEBUG)
-
-        OkGo.getInstance().init(this)
-    }
-}
+// http://gank.io/api/data/福利/10/1
+const val GirlUrl = "http://gank.io/api/data/福利/"
