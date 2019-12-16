@@ -45,10 +45,12 @@ class ResultFragment : Fragment() {
                         .scaleX(scale)
                         .scaleY(scale)
                         .setInterpolator(OvershootInterpolator())
-                        .withEndAction { restart.visibility = View.VISIBLE }
+                        .withEndAction { restart?.visibility = View.VISIBLE }
                 }, 3000)
             }
 
         restart.setOnClickListener { findNavController().navigateUp() }
+
+        message.setOnClickListener { findNavController().navigate(R.id.action_resultFragment_to_nav_gallery) }
     }
 }

@@ -11,8 +11,8 @@ android {
         applicationId "com.wyl.wegame"
         minSdkVersion 22
         targetSdkVersion 28
-        versionCode 1
-        versionName "v1.0"
+        versionCode 3
+        versionName "v1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             //设置支持的SO库架构
@@ -55,6 +55,7 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
     implementation 'io.supercharge:shimmerlayout:2.1.0'
     implementation 'me.panpf:sketch:2.7.1'
+    implementation 'com.github.moyokoo:Diooto:1.23'
 
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.lzy.net:okgo:3.0.4'

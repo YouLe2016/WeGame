@@ -32,20 +32,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wyl.wegame.R
 import com.wyl.wegame.bean.GirlItem
-import com.wyl.wegame.gallery.PhotoFragment.Companion.Girl
 import kotlinx.android.synthetic.main.gallery_cell.view.*
 import me.panpf.sketch.decode.ImageAttrs
 import me.panpf.sketch.request.CancelCause
 import me.panpf.sketch.request.DisplayListener
 import me.panpf.sketch.request.ErrorCause
 import me.panpf.sketch.request.ImageFrom
+import net.moyokoo.diooto.Diooto
+import net.moyokoo.diooto.config.DiootoConfig
+import net.moyokoo.diooto.interfaces.CircleIndexIndicator
+import net.moyokoo.diooto.interfaces.DefaultCircleProgress
 
 /**
  * 项目名称：WeGame
@@ -55,6 +56,8 @@ import me.panpf.sketch.request.ImageFrom
  * 修改说明：
  */
 class GalleryAdapter : ListAdapter<GirlItem, GalleryAdapter.ViewHolder>(DiffCallback) {
+    private lateinit var mRecyclerView: RecyclerView
+    private var mList: Array<String>? = null
 
     companion object DiffCallback : DiffUtil.ItemCallback<GirlItem>() {
         override fun areItemsTheSame(oldItem: GirlItem, newItem: GirlItem): Boolean {
@@ -76,15 +79,49 @@ class GalleryAdapter : ListAdapter<GirlItem, GalleryAdapter.ViewHolder>(DiffCall
         val holder = ViewHolder(view)
 
         view.setOnClickListener {
-            holder.itemView.findNavController().navigate(
-                R.id.action_galleryFragment_to_photoFragment,
-                bundleOf(Girl to getItem(holder.adapterPosition))
-            )
+            //            view.findNavController().navigate(
+//                R.id.action_galleryFragment_to_photoFragment,
+//                bundleOf(Girl to getItem(holder.adapterPosition))
+//            )
+
+            Diooto(parent.context)
+                .urls(mList)
+                // 图片或者视频
+                .type(DiootoConfig.PHOTO)
+                //当前的Activity是否为沉浸式,默认为false
+//                .immersive(true)
+                .fullscreen(true)
+                //点击的位置 如果你的RecyclerView有头部View  则使用 .position(holder.getAdapterPosition(),headSize) headSize为头部布局数量
+                .position(holder.adapterPosition)
+                //可以传recylcerview自动识别(需要传在item布局中的viewId)  也可以手动传view数组
+                .views(mRecyclerView, R.id.imageView2)
+                //设置选择器 默认CircleIndexIndicator  可实现IIndicator接口自定义
+                .setIndicator(CircleIndexIndicator())
+                .indicatorVisibility(View.GONE)
+                //设置进度条样式  默认DefaultProgress 可实现IProgress接口自定义
+                .setProgress(DefaultCircleProgress())
+                //在显示原图之前显示的图片  如果你列表使用Glide加载  这里也使用Glide加载
+                .loadPhotoBeforeShowBigImage { sketchImageView, position ->
+                    sketchImageView.displayImage(getItem(position).url)
+                }
+                .start()
+
         }
 
         return holder
     }
 
+
+    override fun submitList(list: MutableList<GirlItem>?) {
+        super.submitList(list)
+        mList = list?.map { it.url }?.toTypedArray()
+    }
+
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        mRecyclerView = recyclerView
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // 这个闪烁控件可以设置 闪烁时间 颜色 角度……

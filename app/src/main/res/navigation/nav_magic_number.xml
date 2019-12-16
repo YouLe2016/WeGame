@@ -38,5 +38,10 @@
         android:id="@+id/resultFragment"
         android:name="com.wyl.wegame.magicnumber.ResultFragment"
         android:label="魔法数字"
-        tools:layout="@layout/fragment_result" />
+        tools:layout="@layout/fragment_result" >
+        <action
+            android:id="@+id/action_resultFragment_to_nav_gallery"
+            app:destination="@id/nav_gallery" />
+    </fragment>
+    <include app:graph="@navigation/nav_gallery" />
 </navigation>

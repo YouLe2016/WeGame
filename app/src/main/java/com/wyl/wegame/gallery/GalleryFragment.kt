@@ -62,7 +62,7 @@ class GalleryFragment : Fragment() {
 
             refreshLayout.finishRefresh()
             refreshLayout.finishLoadMore()
-            mAdapter.submitList(it)
+            mAdapter.submitList(it.toMutableList())
         })
 
         recyclerView.apply {
